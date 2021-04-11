@@ -1,9 +1,10 @@
-import argparse
+import argparse, os
+
+from .data import init as hidden, GIT_DIR
 
 def main():
     args = parse_args()
     args.func(args)
-
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -16,6 +17,9 @@ def parse_args():
 
     return parser.parse_args()
 
-
 def init(args):
-    print('Hello, World!')
+    try:
+        hidden()
+        print(f'Initialised empty repository in {os.getcwd()}/{GIT_DIR}.')
+    except FileExistsError:
+        print(f'Repository already initialised.')
